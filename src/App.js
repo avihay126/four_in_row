@@ -46,6 +46,7 @@ class App extends React.Component {
             if (col[i].color==="empty"){
                 col[i].color=color;
                 cellToCheck=col[i];
+                this.checkVerticalWin(col);
                 flag=!flag;
                 break;
             }
@@ -59,8 +60,19 @@ class App extends React.Component {
     checkWin=(cellToCheck)=>{
       const newBoard=this.state.columns;
       let x=cellToCheck;
-      alert(x.color);
-
+      // alert(x.color);
+    }
+    checkVerticalWin=(column)=>{
+        let flag=false;
+        for (let i = 0; i < column.length-4; i++) {
+            if (column[i].color!=="empty"&&column[i].color===column[i+1].color&&column[i].color===column[i+2].color&&column[i].color===column[i+3].color){
+                flag=true;
+            }
+        }
+        if (flag){
+            alert("win")
+        }
+        return flag;
 
     }
 
