@@ -7,12 +7,12 @@ function PrintBoard(props) {
             {
                 props.columns.map((column) => {
                     return (
-                        <td>
-                            <PrintColumn change={props.change} column={column}/>
-                        </td>
 
+                            <td>
+                                <PrintColumn change={props.change} column={column}/>
+                            </td>
 
-                    )
+                )
                 })
             }
 

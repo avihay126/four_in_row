@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>PrintBoard.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #e8bf6a;}
+.s4 { color: #bababa;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+PrintBoard.js</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">PrintColumn from </span><span class="s2">&quot;./PrintColumn&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">React from </span><span class="s2">&quot;react&quot;</span><span class="s0">;</span>
+
+<span class="s0">function </span><span class="s1">PrintBoard(props) {</span>
+    <span class="s0">return </span><span class="s1">(</span>
+        <span class="s3">&lt;div </span><span class="s4">id</span><span class="s2">=</span><span class="s1">{</span><span class="s2">&quot;board&quot;</span><span class="s1">}</span><span class="s3">&gt;</span>
+            <span class="s1">{</span>
+                <span class="s1">props.columns.map((column) =&gt; {</span>
+                    <span class="s0">return </span><span class="s1">(</span>
+                        <span class="s3">&lt;td&gt;</span>
+                            <span class="s3">&lt;PrintColumn </span><span class="s4">change</span><span class="s2">=</span><span class="s1">{props.change} </span><span class="s4">column</span><span class="s2">=</span><span class="s1">{column}</span><span class="s3">/&gt;</span>
+                        <span class="s3">&lt;/td&gt;</span>
+
+
+                    <span class="s1">)</span>
+                <span class="s1">})</span>
+            <span class="s1">}</span>
+
+        <span class="s3">&lt;/div&gt;</span>
+    <span class="s1">)</span>
+
+
+<span class="s1">}</span>
+
+<span class="s0">export default </span><span class="s1">PrintBoard</span><span class="s0">;</span></pre>
+</body>
+</html>

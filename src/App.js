@@ -58,7 +58,7 @@ class App extends React.Component {
     }
     checkWin=(cellToCheck)=>{
       const newBoard=this.state.columns;
-      let x=newBoard[0][1];
+      let x=cellToCheck;
       alert(x.color);
 
 

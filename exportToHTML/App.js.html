@@ -1,0 +1,98 @@
+<html>
+<head>
+<title>App.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+.s4 { color: #e8bf6a;}
+.s5 { color: #bababa;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+App.js</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">logo from </span><span class="s2">'./logo.svg'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s2">'./App.css'</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">React from </span><span class="s2">&quot;react&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">PrintCell from </span><span class="s2">&quot;./PrintCell&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">PrintColumn from </span><span class="s2">&quot;./PrintColumn&quot;</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">PrintBoard from </span><span class="s2">&quot;./PrintBoard&quot;</span><span class="s0">;</span>
+
+<span class="s0">class </span><span class="s1">App </span><span class="s0">extends </span><span class="s1">React.Component {</span>
+    <span class="s1">state = {</span>
+        <span class="s1">player: </span><span class="s0">false,</span>
+        <span class="s1">columns: []</span>
+    <span class="s1">}</span>
+    <span class="s1">constructor(props) {</span>
+        <span class="s0">super</span><span class="s1">(props)</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.initBoard()</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s1">initCol=()=&gt;{</span>
+        <span class="s0">const </span><span class="s1">rows=</span><span class="s3">6</span><span class="s0">;</span>
+        <span class="s0">let </span><span class="s1">newArray = []</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">let </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; rows</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">const </span><span class="s1">cell={</span>
+                <span class="s1">color: </span><span class="s2">&quot;empty&quot;</span>
+            <span class="s1">}</span>
+            <span class="s1">newArray.push(cell)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">newArray</span><span class="s0">;</span>
+    <span class="s1">}</span>
+    <span class="s1">initBoard=()=&gt;{</span>
+        <span class="s0">const </span><span class="s1">columns=</span><span class="s3">7</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">let </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt; columns</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">this</span><span class="s1">.state.columns.push(</span><span class="s0">this</span><span class="s1">.initCol())</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s1">changeColor=(col)=&gt;{</span>
+        <span class="s0">let </span><span class="s1">flag=</span><span class="s0">this</span><span class="s1">.state.player</span>
+        <span class="s0">let </span><span class="s1">color=</span><span class="s2">&quot;&quot;</span><span class="s0">;</span>
+        <span class="s0">if </span><span class="s1">(flag){</span>
+            <span class="s1">color=</span><span class="s2">&quot;yellow&quot;</span><span class="s0">;</span>
+        <span class="s1">}</span><span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">color=</span><span class="s2">&quot;red&quot;</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">let </span><span class="s1">cellToCheck</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">let </span><span class="s1">i = </span><span class="s3">0</span><span class="s0">; </span><span class="s1">i &lt;col.length</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">if </span><span class="s1">(col[i].color===</span><span class="s2">&quot;empty&quot;</span><span class="s1">){</span>
+                <span class="s1">col[i].color=color</span><span class="s0">;</span>
+                <span class="s1">cellToCheck=col[i]</span><span class="s0">;</span>
+                <span class="s1">flag=!flag</span><span class="s0">;</span>
+                <span class="s0">break;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+        <span class="s0">this</span><span class="s1">.checkWin(cellToCheck)</span><span class="s0">;</span>
+        <span class="s0">this</span><span class="s1">.setState({</span>
+            <span class="s1">col:col</span><span class="s0">,</span>
+            <span class="s1">player: flag</span>
+        <span class="s1">})</span>
+    <span class="s1">}</span>
+    <span class="s1">checkWin=(cellToCheck)=&gt;{</span>
+      <span class="s0">const </span><span class="s1">newBoard=</span><span class="s0">this</span><span class="s1">.state.columns</span><span class="s0">;</span>
+      <span class="s0">let </span><span class="s1">x=newBoard[</span><span class="s3">0</span><span class="s1">][</span><span class="s3">1</span><span class="s1">]</span><span class="s0">;</span>
+      <span class="s1">alert(x.color)</span><span class="s0">;</span>
+
+
+    <span class="s1">}</span>
+
+    <span class="s1">render() {</span>
+        <span class="s0">return </span><span class="s1">(</span>
+            <span class="s4">&lt;div </span><span class="s5">className</span><span class="s2">=&quot;App&quot;</span><span class="s4">&gt;</span>
+                <span class="s4">&lt;PrintBoard </span><span class="s5">columns</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.state.columns} </span><span class="s5">change</span><span class="s2">=</span><span class="s1">{</span><span class="s0">this</span><span class="s1">.changeColor}</span><span class="s4">/&gt;</span>
+            <span class="s4">&lt;/div&gt;</span>
+        <span class="s1">)</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+
+<span class="s0">export default </span><span class="s1">App</span><span class="s0">;</span>
+</pre>
+</body>
+</html>

@@ -9,11 +9,9 @@ function PrintColumn(props){
 
                 props.column.map((cell)=>{
                   return(
-                      <tr>
-                          <PrintCell cells={cell}/>
-                      </tr>
-
-
+                          <tr>
+                              <PrintCell cells={cell}/>
+                          </tr>
                   )
                     }
 
