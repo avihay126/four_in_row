@@ -1,14 +1,48 @@
-.App {
-  text-align: center;
+div[id="App"]{
+
+  background: url("AIUA LOGO (4).png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 div[id="board"]{
-  width: 700px;
-  height: 600px;
-  margin-top: 100px;
+  width: fit-content;
+  margin-top: 50px;
   margin-right: auto;
   margin-left: auto;
   background-color: blue;
   transform: scaleY(-1);
+}
+div[id="title"] {
+  width: fit-content;
+  font-size: 50px;
+  margin-right: auto;
+  margin-left: auto;
+  font-weight: bold;
+  color: blue;
+  font-family: Arial;
+  text-shadow: 2px 2px 2px grey;
+  text-decoration: underline;
+
+
+
+
+}
+div[class="player"]{
+  text-align: center;
+  font-weight: bold;
+  line-height: 70px;
+}
+div[id="player 1"]{
+  position: absolute;  right: 0;
+
+}
+div[id="player 2"]{
+  position: absolute;  left: 0;
+}
+div[state="playing"]{
+  border: 5px solid blue;
 }
 
 
