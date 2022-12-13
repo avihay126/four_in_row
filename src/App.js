@@ -7,20 +7,21 @@ import PrintBoard from "./PrintBoard";
 
 class App extends React.Component {
     state = {
-        player: false,
-        columns: []
+        turn: false,
+        board: []
     }
     constructor(props) {
         super(props);
         this.initBoard();
     }
 
-    initCol=()=>{
+    initCol=(colNumber)=>{
         const rows=6;
         let newArray = [];
         for (let i = 0; i < rows; i++) {
             const cell={
-                color: "empty"
+                color: "empty",
+                colNumber: colNumber
             }
             newArray.push(cell);
         }
@@ -29,43 +30,75 @@ class App extends React.Component {
     initBoard=()=>{
         const columns=7;
         for (let i = 0; i < columns; i++) {
-            this.state.columns.push(this.initCol());
+            this.state.board.push(this.initCol(i));
         }
     }
 
-    changeColor=(col)=>{
-        let flag=this.state.player
+    checkTurn=(flag)=>{
         let color="";
         if (flag){
             color="yellow";
         }else {
             color="red";
         }
-        let cellToCheck;
+        return color;
+    }
+
+    changeColor=(col)=>{
+
+        let flag=this.state.turn
+        let color=this.checkTurn(flag);
         for (let i = 0; i <col.length; i++) {
             if (col[i].color==="empty"){
                 col[i].color=color;
-                cellToCheck=col[i];
-                this.checkVerticalWin(col);
+                this.checkWin(col,i);
                 flag=!flag;
                 break;
             }
         }
-        this.checkWin(cellToCheck);
         this.setState({
             col:col,
-            player: flag
+            turn:flag
         })
     }
-    checkWin=(cellToCheck)=>{
-      const newBoard=this.state.columns;
-      let x=cellToCheck;
-      // alert(x.color);
+
+    checkWin=(col,indexInCol)=>{
+        if (indexInCol>2){
+            this.checkVerticalWin(col);
+        }
+        this.checkHorizontalWin(indexInCol);
+        this.checkDiagonalWin(col[0].colNumber,indexInCol);
+
+    }
+    checkDiagonalWin=(x,y)=>{
+        alert(x+","+y)
+
+
+
+    }
+    checkHorizontalWin=(indexInCol)=>{
+        let flag=false;
+        for (let i = 0; i < this.state.board.length-3; i++) {
+            if (this.state.board[i][indexInCol].color!=="empty"&&
+                this.state.board[i][indexInCol].color===this.state.board[i+1][indexInCol].color&&
+                this.state.board[i][indexInCol].color===this.state.board[i+2][indexInCol].color&&
+                this.state.board[i][indexInCol].color===this.state.board[i+3][indexInCol].color){
+                flag=true;
+
+            }
+        }
+        if (flag)
+            alert("win");
+        return flag;
+
     }
     checkVerticalWin=(column)=>{
         let flag=false;
-        for (let i = 0; i < column.length-4; i++) {
-            if (column[i].color!=="empty"&&column[i].color===column[i+1].color&&column[i].color===column[i+2].color&&column[i].color===column[i+3].color){
+        for (let i = 0; i < column.length-3; i++) {
+            if (column[i].color!=="empty"&&
+                column[i].color===column[i+1].color&&
+                column[i].color===column[i+2].color&&
+                column[i].color===column[i+3].color){
                 flag=true;
             }
         }
@@ -73,13 +106,12 @@ class App extends React.Component {
             alert("win")
         }
         return flag;
-
     }
 
     render() {
         return (
             <div className="App">
-                <PrintBoard columns={this.state.columns} change={this.changeColor}/>
+                <PrintBoard columns={this.state.board} change={this.changeColor}/>
             </div>
         )
     }

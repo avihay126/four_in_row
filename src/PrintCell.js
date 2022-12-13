@@ -1,10 +1,6 @@
 function PrintCell(props){
 return(
-  <div >
-    <div id={"cell"} color={props.cells.color}>
-        {props.cells.value}
-
-    </div>
+  <div id={"cell"} color={props.cells.color}>
 
   </div>
 );
