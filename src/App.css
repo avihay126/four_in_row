@@ -21,7 +21,7 @@ div[id="title"] {
   margin-left: auto;
   font-weight: bold;
   color: blue;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   text-shadow: 2px 2px 2px grey;
   text-decoration: underline;
 
@@ -42,15 +42,18 @@ div[id="player 2"]{
   position: absolute;  left: 0;
 }
 div[state="playing"]{
-  border: 5px solid blue;
+  border: 5px solid lawngreen;
+
+
 }
 
 
 div [id="cell"]{
   width: 80px;
   height: 80px;
-  border-radius: 50px;
-  margin: 10px;
+  border-radius: 50px ;
+  border: 1px solid black;
+  margin: 7px;
 }
 div[color="empty"]{
   background-color: beige;

@@ -6,7 +6,6 @@ function PrintColumn(props){
     return(
         <div  onClick={()=>props.change(props.column)} >
             {
-
                 props.column.map((cell)=>{
                   return(
                           <tr>
@@ -16,8 +15,6 @@ function PrintColumn(props){
                     }
 
                 )
-
-
             }
 
         </div>

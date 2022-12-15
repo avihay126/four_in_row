@@ -1,8 +1,6 @@
-import logo from './logo.svg';
+
 import './App.css';
 import React from "react";
-import PrintCell from "./PrintCell";
-import PrintColumn from "./PrintColumn";
 import PrintBoard from "./PrintBoard";
 import PrintPlayer from "./PrintPlayer";
 
@@ -12,11 +10,13 @@ class App extends React.Component {
         board: [],
         player1: {
             name: "player 1",
-            color: "red"
+            color: "red",
+            playing: "playing"
         },
         player2: {
             name: "player 2",
-            color: "yellow"
+            color: "yellow",
+            playing: ""
         }
 
     }
@@ -49,10 +49,37 @@ class App extends React.Component {
         let color = "";
         if (flag) {
             color = this.state.player2.color;
+            this.setState({
+                player1: {
+                    playing:"playing",
+                    name: this.state.player1.name,
+                    color:this.state.player1.color,
+                },
+                player2: {
+                    playing:"",
+                    name: this.state.player2.name,
+                    color:this.state.player2.color,
+                }
+
+            })
+
         } else {
             color = this.state.player1.color;
-        }
+            this.setState({
+                player1: {
+                    playing:"",
+                    name: this.state.player1.name,
+                    color:this.state.player1.color,
+                },
+                player2: {
+                    playing:"playing",
+                    name: this.state.player2.name,
+                    color:this.state.player2.color,
+                }
 
+            })
+
+        }
         return color;
     }
 
@@ -78,9 +105,9 @@ class App extends React.Component {
         if (indexInCol > 2) {
             verticalWin = this.checkVerticalWin(col);
         }
-        horizontalWin = this.checkHorizontalWin(indexInCol);
-        rightDiagonalWin = this.checkDiagonalWin(col[0].colNumber, indexInCol, 1);
-        leftDiagonalWin = this.checkDiagonalWin(col[0].colNumber, indexInCol, -1);
+        horizontalWin = this.lineEquationExtraction(col[0].colNumber,indexInCol,0)
+        rightDiagonalWin = this.lineEquationExtraction(col[0].colNumber, indexInCol, 1);
+        leftDiagonalWin = this.lineEquationExtraction(col[0].colNumber, indexInCol, -1);
         if (verticalWin || horizontalWin || rightDiagonalWin || leftDiagonalWin) {
             setTimeout(() => {
                 alert(col[indexInCol].color + " win")
@@ -90,7 +117,7 @@ class App extends React.Component {
         }
 
     }
-    checkDiagonalWin = (a, b, m) => {
+    lineEquationExtraction = (a, b, m) => {
         let array = [];
         for (let i = 0; i < 7; i++) {
             let x = i;
@@ -104,22 +131,6 @@ class App extends React.Component {
     }
     checkVerticalWin = (col) => {
         return this.checkSequence(col);
-    }
-
-
-    checkHorizontalWin = (indexInCol) => {
-        let flag = false;
-        for (let i = 0; i < this.state.board.length - 3; i++) {
-            if (this.state.board[i][indexInCol].color !== "empty" &&
-                this.state.board[i][indexInCol].color === this.state.board[i + 1][indexInCol].color &&
-                this.state.board[i][indexInCol].color === this.state.board[i + 2][indexInCol].color &&
-                this.state.board[i][indexInCol].color === this.state.board[i + 3][indexInCol].color) {
-                flag = true;
-
-            }
-        }
-        return flag;
-
     }
     checkSequence = (column) => {
         let flag = false;
@@ -141,8 +152,6 @@ class App extends React.Component {
                     בשורה A.I.U.A
                 </div>
                 <div>
-
-
                         <PrintPlayer player={this.state.player1}/>
                         <PrintPlayer player={this.state.player2}/>
                     <PrintBoard columns={this.state.board} change={this.changeColor}/>
