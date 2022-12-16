@@ -3,9 +3,13 @@ import './App.css';
 import React from "react";
 import PrintBoard from "./PrintBoard";
 import PrintPlayer from "./PrintPlayer";
+import PrintPopUp from "./PrintPopUp";
 
 class App extends React.Component {
     state = {
+        draw: false,
+        gameOver: false,
+        popup : "none",
         turn: false,
         board: [],
         player1: {
@@ -97,6 +101,7 @@ class App extends React.Component {
         this.setState({
             col: col,
             turn: flag
+
         })
     }
 
@@ -108,15 +113,37 @@ class App extends React.Component {
         horizontalWin = this.lineEquationExtraction(col[0].colNumber,indexInCol,0)
         rightDiagonalWin = this.lineEquationExtraction(col[0].colNumber, indexInCol, 1);
         leftDiagonalWin = this.lineEquationExtraction(col[0].colNumber, indexInCol, -1);
-        if (verticalWin || horizontalWin || rightDiagonalWin || leftDiagonalWin) {
+        if (this.checkDraw()){
+            this.setState({
+                popup:"show",
+            })
             setTimeout(() => {
-                alert(col[indexInCol].color + " win")
                 document.location.reload();
-            }, 10)
+            }, 5000)
+        }
+        if (verticalWin || horizontalWin || rightDiagonalWin || leftDiagonalWin) {
+            this.setState({
+                popup:"show",
+                gameOver: true,
+
+            })
+            setTimeout(() => {
+                document.location.reload();
+            }, 5000)
+
 
         }
 
     }
+    checkDraw=()=>{
+        for (let i = 0; i < this.state.board.length; i++) {
+            if (this.state.board[i][5].color==="empty"){
+                return false
+            }
+        }
+        return true;
+    }
+
     lineEquationExtraction = (a, b, m) => {
         let array = [];
         for (let i = 0; i < 7; i++) {
@@ -140,10 +167,15 @@ class App extends React.Component {
                 column[i].color === column[i + 2].color &&
                 column[i].color === column[i + 3].color) {
                 flag = true;
+                // column[i].color="green";
+                // column[i+1].color="green";
+                // column[i+2].color="green";
+                // column[i+3].color="green";
             }
         }
         return flag;
     }
+
 
     render() {
         return (
@@ -154,8 +186,10 @@ class App extends React.Component {
                 <div>
                         <PrintPlayer player={this.state.player1}/>
                         <PrintPlayer player={this.state.player2}/>
-                    <PrintBoard columns={this.state.board} change={this.changeColor}/>
+                    <PrintBoard columns={this.state.board} change={!this.state.gameOver && this.changeColor}/>
                 </div>
+                <PrintPopUp state={this.state.popup} winner={this.state.turn ? this.state.player1.name:this.state.player2.name} won={this.state.gameOver}/>
+
 
             </div>
         )
