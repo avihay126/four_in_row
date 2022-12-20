@@ -1,10 +1,9 @@
 div[id="App"]{
 
-  background: url("AIUA LOGO (4).png") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+  background: url("AIUALOGO.jpeg") no-repeat center center fixed;
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 div[id="board"]{
   width: fit-content;
@@ -13,6 +12,7 @@ div[id="board"]{
   margin-left: auto;
   background-color: blue;
   transform: scaleY(-1);
+  cursor: pointer;
 }
 div[id="title"] {
   width: fit-content;
@@ -33,16 +33,20 @@ div[class="player"]{
   text-align: center;
   font-weight: bold;
   line-height: 70px;
+  margin-top: 200px;
 }
 div[id="player 1"]{
-  position: absolute;  right: 0;
+  position: absolute;  right: 150px;
+
 
 }
 div[id="player 2"]{
-  position: absolute;  left: 0;
+  position: absolute;  left: 150px;
+
 }
 div[state="playing"]{
-  border: 5px solid lawngreen;
+  border: 1px solid lawngreen;
+  animation: blink 1s linear infinite;
 
 
 }
@@ -64,10 +68,9 @@ div [color="red"] {
 div [color="yellow"] {
   background-color: yellow;
 }
-div [color="green"] {
-  /*background-color: lawngreen;*/
+div [color="win"] {
 
-  animation: blink 1s linear infinite;
+  animation: blink 2s linear infinite;
 
 }
 @keyframes blink {
